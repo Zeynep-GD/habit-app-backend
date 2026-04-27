@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         User user = UserMapper.fromRegisterRequest(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Şifre artık güvende!
+        user.setPassword(passwordEncoder.encode(request.password()));
 
         User savedUser = userRepository.save(user);
         return UserMapper.toDto(savedUser);
