@@ -5,6 +5,7 @@ import HabitAppBackend.demo.domain.dto.EmotionLogRequest;
 import HabitAppBackend.demo.domain.entities.EmotionLog;
 import HabitAppBackend.demo.domain.entities.User;
 import HabitAppBackend.demo.exception.ResourceNotFoundException;
+import HabitAppBackend.demo.mappers.EmotionMapper;
 import HabitAppBackend.demo.repositories.EmotionLogRepository;
 import HabitAppBackend.demo.repositories.UserRepository;
 import HabitAppBackend.demo.services.EmotionLogService;
@@ -59,11 +60,6 @@ public class EmotionLogServiceImpl implements EmotionLogService {
         // Kaydetmede eğer nesnede ID varsa Update atar, ID yoksa Insert atar.
         EmotionLog savedLog = emotionLogRepository.save(emotionLog);
 
-        return new EmotionLogDTO(
-                savedLog.getId(), savedLog.getLogDate(),
-                savedLog.getJoyRate(), savedLog.getSadnessRate(), savedLog.getAngerRate(),
-                savedLog.getFearRate(), savedLog.getDisgustRate(), savedLog.getAnxietyRate(),
-                savedLog.getEmbarrassmentRate(), savedLog.getEnvyRate(), savedLog.getEnnuiRate()
-        );
+        return EmotionMapper.toDto(savedLog);
     }
 }
